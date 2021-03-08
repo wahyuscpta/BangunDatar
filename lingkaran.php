@@ -4,7 +4,7 @@
 
         $jari = $_POST['jari'];
         $hasil = $jari*$jari*3.14;
-        $id = uniqid(rand());
+        $id = uniqid();
         date_default_timezone_set('Asia/Makassar');
         $create = date("Y-m-d H:i:s");
 

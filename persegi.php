@@ -4,7 +4,7 @@
 
         $sisi = $_POST['sisi'];
         $hasil = $sisi*$sisi;
-        $id = uniqid(rand());
+        $id = uniqid();
         date_default_timezone_set('Asia/Makassar');
         $create = date("Y-m-d H:i:s");
 

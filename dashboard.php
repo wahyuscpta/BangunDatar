@@ -13,6 +13,12 @@
     $jumlah_persegi = count((array)$jsonpersegi);
     $jumlah_lingkaran = count((array)$jsonlingkaran);
     
+
+    $jumlah_data = $jumlah_segitiga+$jumlah_persegi+$jumlah_lingkaran;
+    $persen_persegi = $jumlah_persegi/$jumlah_data*100;
+    $persen_segitiga = $jumlah_segitiga/$jumlah_data*100;
+    $persen_lingkaran = $jumlah_lingkaran/$jumlah_data*100;
+
 ?>
 
 
@@ -41,28 +47,28 @@
         </div>
 
             <div class="col-4">
-                <div class="card" style="height: 15rem;">
+                <div class="card" style="height: 10rem;">
                     <div class="card-body">
-                        <h4 class="card-title text-center mt-5">Jumlah Perhitungan Segitiga</h4>
-                        <h4 class="card-text text-center mt-3"><?= $jumlah_segitiga ?></h4>
+                        <h5 class="card-title text-center mt-3">Jumlah Perhitungan Segitiga</h5>
+                        <h4 class="card-text text-center mt-4"><?= $jumlah_segitiga ?></h4>
                     </div>
                 </div>
             </div>
 
             <div class="col-4">
-                <div class="card" style="height: 15rem;">
+                <div class="card" style="height: 10rem;">
                     <div class="card-body">
-                        <h4 class="card-title text-center mt-5">Jumlah Perhitungan Persegi</h4>
-                        <h4 class="card-text text-center mt-3"><?= $jumlah_persegi ?></h4>
+                        <h5 class="card-title text-center mt-3">Jumlah Perhitungan Persegi</h5>
+                        <h4 class="card-text text-center mt-4"><?= $jumlah_persegi ?></h4>
                     </div>
                 </div>
             </div>
 
             <div class="col-4">
-                <div class="card" style="height: 15rem;">
+                <div class="card" style="height: 10rem;">
                     <div class="card-body">
-                        <h4 class="card-title text-center mt-5">Jumlah Perhitungan Lingkaran</h4>
-                        <h4 class="card-text text-center mt-3"><?= $jumlah_lingkaran ?></h4>
+                        <h5 class="card-title text-center mt-3">Jumlah Perhitungan Lingkaran</h5>
+                        <h4 class="card-text text-center mt-4"><?= $jumlah_lingkaran ?></h4>
                     </div>
                 </div>
             </div>
@@ -70,7 +76,7 @@
             <div class="col-md-6 mt-5">
                 <table class="table table-striped table-bordered table-hover mt-5">
                     <tr>
-                        <th colspan="5" class="text-center">TABEL PERSEGI</th>
+                        <th colspan="5" class="text-center">TABEL LUAS PERSEGI</th>
                     </tr>
                     <tr class="text-center">
                         <th>No</th>
@@ -97,7 +103,7 @@
             <div class="col-md-6 mt-5">
                 <table class="table table-striped table-bordered table-hover mt-5">
                     <tr>
-                        <th colspan="5" class="text-center">TABEL LINGKARAN</th>
+                        <th colspan="5" class="text-center">TABEL LUAS LINGKARAN</th>
                     </tr>
                     <tr>
                         <th>No</th>
@@ -124,7 +130,7 @@
             <div class="col-md-12">
                 <table class="table table-striped table-bordered table-hover mt-5">
                     <tr>
-                        <th colspan="6" class="text-center">TABEL SEGITIGA</th>
+                        <th colspan="6" class="text-center">TABEL LUAS SEGITIGA</th>
                     </tr>
                     <tr class="text-center">
                         <th>No</th>
@@ -152,18 +158,20 @@
         </div>
     </div>
 
-    <div class="container mt-5 mx-auto">
+    <div class="container mt-5 mb-5 mx-auto">
 
-        <table cellpadding="5">
+        <h3 class="mt-5 mb-5 text-center">Diagram Perbandingan Jumlah Data</h3>
+
+        <table cellpadding="5" class="mx-auto">
             <tr>
                 <td valign="bottom" class="pl-3">
-                    <div class="text-white text-center" style="padding: <?= $jumlah_persegi*50 ?>px 20px;width: 50px;background-color: red;"><?= $jumlah_persegi ?></div>
+                    <div class="text-white text-center" style="padding: <?= $jumlah_persegi*50 ?>px 0px;width: 50px;background-color: red;"><?= $jumlah_persegi ?></div>
                 </td>
                 <td valign="bottom" class="pl-3">
-                    <div  class="text-white text-center" style="padding: <?= $jumlah_segitiga*50 ?>px 20px;width: 50px;background-color: green;"><?= $jumlah_segitiga ?></div>
+                    <div  class="text-white text-center" style="padding: <?= $jumlah_segitiga*50 ?>px 0px;width: 50px;background-color: green;"><?= $jumlah_segitiga ?></div>
                 </td>
                 <td valign="bottom" class="pl-3">
-                    <div class="text-white text-center" style="padding: <?= $jumlah_lingkaran*50 ?>px 20px;width: 50px;background-color: blue;"><?= $jumlah_lingkaran ?></div>
+                    <div class="text-white text-center" style="padding: <?= $jumlah_lingkaran*50 ?>px 0px;width: 50px;background-color: blue;"><?= $jumlah_lingkaran ?></div>
                 </td>
 
             </tr>
@@ -174,6 +182,19 @@
                 <td class="p-3">Lingkaran</td>
             </tr>
         </table>
+    </div>
+
+    <div class="container mt-5 mb-5 pt-5">
+
+        <h3 class="text-center mb-5">Persentase Perbandingan Jumlah Data</h3>
+
+        <div class="text-white text-center pt-1" style="width: <?= round($persen_persegi) ?>%;height: 40px;background-color: red;">Persegi <?= round($persen_persegi) ?> %</div>
+
+        <div  class="text-white text-center pt-1" style="width: <?= round($persen_segitiga) ?>%;height: 40px;background-color: green;">Segitiga <?= round($persen_segitiga) ?> %</div>
+
+        <div class="text-white text-center pt-1" style="width: <?= round($persen_lingkaran) ?>%;height: 40px;background-color: blue;">Lingkaran <?= round($persen_lingkaran) ?> %</div>
+
+
     </div>
 
 </body>
