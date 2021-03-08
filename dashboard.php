@@ -9,8 +9,10 @@
     $persegi = file_get_contents('persegi.json');
     $jsonpersegi = json_decode($persegi);
 
-    $dump = rsort($jsonsegitiga);
-    echo $dump;
+    $jumlah_segitiga = count((array)$jsonsegitiga);
+    $jumlah_persegi = count((array)$jsonpersegi);
+    $jumlah_lingkaran = count((array)$jsonlingkaran);
+    
 ?>
 
 
@@ -20,56 +22,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta nam="author" content="Suhari">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/latwebservice3.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+
+    <style>
+        th{
+            text-align: center;
+        }
+    </style>
+
 <body>
-    <br><br>
-    <div class="container">
+
+    <div class="container mt-5">
         <div class="row">
 
-            <div class="col-md-6">
+        <div class="col-12 mb-5">
+            <a href="index.php" class="btn btn-primary">BACK TO HOME</a>
+        </div>
+
+            <div class="col-4">
+                <div class="card" style="height: 15rem;">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mt-5">Jumlah Perhitungan Segitiga</h4>
+                        <h4 class="card-text text-center mt-3"><?= $jumlah_segitiga ?></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card" style="height: 15rem;">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mt-5">Jumlah Perhitungan Persegi</h4>
+                        <h4 class="card-text text-center mt-3"><?= $jumlah_persegi ?></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card" style="height: 15rem;">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mt-5">Jumlah Perhitungan Lingkaran</h4>
+                        <h4 class="card-text text-center mt-3"><?= $jumlah_lingkaran ?></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-5">
                 <table class="table table-striped table-bordered table-hover mt-5">
                     <tr>
-                        <th colspan="4" class="text-center">TABEL PERSEGI</th>
+                        <th colspan="5" class="text-center">TABEL PERSEGI</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center">
                         <th>No</th>
                         <th>Sisi</th>
                         <th>Hasil</th>
+                        <th>Tanggal Dibuat</th>
+                        <th>Aksi</th>
                     </tr>
                         <?php
                             $no=0; foreach($jsonpersegi as $index => $obj): $no++;
                         ?>
-                    <tr>
+                    <tr class="text-center">
                         <td><?php echo $no; ?></td>
-                        <td><?php echo $obj->sisi; ?></td>
-                        <td><?php echo $obj->hasil; ?></td>
+                        <td><?php echo $obj->sisi; ?> cm</td>
+                        <td><?php echo $obj->hasil; ?> cm<sup>2</sup></td>
+                        <td><?php echo $obj->create_at; ?></td>
+                        <td><a href="hapus_persegi.php?id=<?= $obj->id ?>" class="btn btn-danger btn-sm">Hapus</a></td>
 
                         <?php endforeach; ?>
                     </tr>
                 </table>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 mt-5">
                 <table class="table table-striped table-bordered table-hover mt-5">
                     <tr>
-                        <th colspan="4" class="text-center">TABEL LINGKARAN</th>
+                        <th colspan="5" class="text-center">TABEL LINGKARAN</th>
                     </tr>
                     <tr>
                         <th>No</th>
                         <th>Jari Jari</th>
                         <th>Hasil</th>
+                        <th>Tanggal Dibuat</th>
+                        <th>Aksi</th>
                     </tr>
                         <?php
                             $no=0; foreach($jsonlingkaran as $index => $obj): $no++;
                         ?>
-                    <tr>
+                    <tr class="text-center">
                         <td><?php echo $no; ?></td>
-                        <td><?php echo $obj->jari; ?></td>
-                        <td><?php echo $obj->hasil; ?></td>
+                        <td><?php echo $obj->jari; ?> cm</td>
+                        <td><?php echo $obj->hasil; ?> cm<sup>2</sup></td>
+                        <td><?php echo $obj->create_at; ?></td>
+                        <td><a href="hapus_lingkaran.php?id=<?= $obj->id ?>" class="btn btn-danger btn-sm">Hapus</a></td>
 
                         <?php endforeach; ?>
                     </tr>
@@ -79,22 +124,26 @@
             <div class="col-md-12">
                 <table class="table table-striped table-bordered table-hover mt-5">
                     <tr>
-                        <th colspan="4" class="text-center">TABEL SEGITIGA</th>
+                        <th colspan="6" class="text-center">TABEL SEGITIGA</th>
                     </tr>
-                    <tr>
+                    <tr class="text-center">
                         <th>No</th>
                         <th>Alas</th>
                         <th>Tinggi</th>
                         <th>Hasil</th>
+                        <th>Tanggal Dibuat</th>
+                        <th>Aksi</th>
                     </tr>
                         <?php
                             $no=0; foreach($jsonsegitiga as $index => $obj): $no++;
                         ?>
-                    <tr>
+                    <tr class="text-center">
                         <td><?php echo $no; ?></td>
-                        <td><?php echo $obj->alas; ?></td>
-                        <td><?php echo $obj->tinggi; ?></td>
-                        <td><?php echo $obj->hasil; ?></td>
+                        <td><?php echo $obj->alas; ?> cm</td>
+                        <td><?php echo $obj->tinggi; ?> cm</td>
+                        <td><?php echo $obj->hasil; ?> cm<sup>2</sup></td>
+                        <td><?php echo $obj->create_at; ?></td>
+                        <td><a href="hapus_segitiga.php?id=<?= $obj->id ?>" class="btn btn-danger btn-sm">Hapus</a></td>
 
                         <?php endforeach; ?>
                     </tr>
@@ -103,74 +152,33 @@
         </div>
     </div>
 
-    <br><br>
-    <div class="container">
-        <canvas id="myChart"></canvas>
+    <div class="container mt-5 mx-auto">
+
+        <table cellpadding="5">
+            <tr>
+                <td valign="bottom" class="pl-3">
+                    <div class="text-white text-center" style="padding: <?= $jumlah_persegi*50 ?>px 20px;width: 50px;background-color: red;"><?= $jumlah_persegi ?></div>
+                </td>
+                <td valign="bottom" class="pl-3">
+                    <div  class="text-white text-center" style="padding: <?= $jumlah_segitiga*50 ?>px 20px;width: 50px;background-color: green;"><?= $jumlah_segitiga ?></div>
+                </td>
+                <td valign="bottom" class="pl-3">
+                    <div class="text-white text-center" style="padding: <?= $jumlah_lingkaran*50 ?>px 20px;width: 50px;background-color: blue;"><?= $jumlah_lingkaran ?></div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td class="p-3">Persegi</td>
+                <td class="p-3">Segitiga</td>
+                <td class="p-3">Lingkaran</td>
+            </tr>
+        </table>
     </div>
-
-    <script>
-        let myChart = document.getElementById('myChart').getContext('2d');
-
-        // Global Options
-        Chart.defaults.global.defaultFontFamily = 'Lato';
-        Chart.defaults.global.defaultFontSize = 18;
-        Chart.defaults.global.defaultFontColor = '#777';
-
-        let massPopChart = new Chart(myChart, {
-        type:'bar',
-        data:{
-            labels:['Segitiga', 'Persegi', 'Lingkaran'],
-            datasets:[{
-            label:'Segitiga',
-            data:[
-
-                <?= count($jsonsegitiga) ?>,
-                <?= count($jsonpersegi) ?>,
-                <?= count($jsonlingkaran) ?>
-
-            ],
-            backgroundColor:[
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)',
-                'rgba(255, 159, 64, 0.6)',
-                'rgba(255, 99, 132, 0.6)'
-            ],
-            borderWidth:1,
-            borderColor:'#777',
-            hoverBorderWidth:3,
-            hoverBorderColor:'#000'
-            }]
-        },
-        options:{
-            title:{
-            display:true,
-            text:'Perbandingan',
-            fontSize:25
-            },
-            legend:{
-            display:true,
-            position:'right',
-            labels:{
-                fontColor:'#000'
-            }
-            },
-            layout:{
-            padding:{
-                left:0,
-                right:0,
-                bottom:0,
-                top:50
-            }
-            },
-            tooltips:{
-            enabled:true
-            }
-        }
-        });
-    </script>
 
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

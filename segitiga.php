@@ -5,12 +5,14 @@
         $alas= $_POST['alas'];
         $tinggi= $_POST['tinggi'];
         $hasil = $alas*$tinggi/2;
+        date_default_timezone_set('Asia/Makassar');
+        $create = date("Y-m-d H:i:s");
         $id = uniqid(rand());
 
         $data = file_get_contents('segitiga.json');
         $data = json_decode($data, true);
 
-        $add_arr = ['id' => $id, 'alas' => $alas, 'tinggi' => $tinggi, 'hasil' => $hasil];
+        $add_arr = ['id' => $id, 'alas' => $alas, 'tinggi' => $tinggi, 'hasil' => $hasil, 'create_at' => $create];
 
         $data[$id] = $add_arr;
         
